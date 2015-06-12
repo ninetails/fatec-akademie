@@ -75,11 +75,32 @@ angular.module('akademie', ['ionic', 'ngCordova', 'ngStorage', 'starter.controll
         controller: 'AccountCtrl'
       }
     }
-  });
+  })
 
   // custom akademie
+  .state('akademie', {
+    url: '/akademie',
+    abstract: true,
+    templateUrl: "templates/akademie/tabs.html"
+  })
+
+  .state('akademie.login', {
+    url: '/login',
+    templateUrl: "templates/akademie/login.html"
+  })
+
+  .state('akademie.dash', {
+    url: '/dash',
+    views: {
+      'akademie-dash': {
+        templateUrl: 'templates/akademie/tab-dash.html',
+        controller: 'UserController'
+      }
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  //$urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/akademie/dash');
 
 });
