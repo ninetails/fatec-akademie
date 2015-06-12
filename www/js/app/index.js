@@ -10,12 +10,12 @@ $(() => {
   script.src = "cordova.js";
 });
 
+module.exports = global.app = app = require('./akademie')(['ionic', 'ngCordova', 'ngStorage']);
+
 function loadBrowser() {
-  global.app = app = require('./akademie')(['ngStorage']);
-  angular.bootstrap(document, 'akademie');
+  app.constant('env', 'browser');
 }
 
 function loadIonic() {
-  global.app = app = require('./akademie')(['ionic', 'ngCordova', 'ngStorage']);
-  angular.bootstrap(document, 'akademie');
+  app.constant('env', 'ionic');
 }
