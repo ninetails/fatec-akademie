@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "akademie: An Ionic project",
   "browserify-shim": {
-    "$": "global:$",
-    "angular": "global:angular"
+    "jquery": "global:$",
+    "angular": "global:angular",
+    "cordova": "global:cordova",
+    "ionic": "global:ionic"
   },
   "dependencies": {
     "cookie-parser": "^1.3.5",

@@ -55,8 +55,8 @@ function compile(watch) {
       .on('error', function (err) { console.error(err); this.emit('end'); })
       .pipe(source('build.js'))
       .pipe(buffer())
-      .pipe(uglify())
       .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(uglify())
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./www/js'));
   }
