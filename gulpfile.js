@@ -38,7 +38,7 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('stylus', function(done) {
-  gulp.src('./stylus/main.styl')
+  gulp.src('./stylus/style.styl')
     .pipe(stylus({
       compress: true
     }))
@@ -58,7 +58,7 @@ function compile(watch) {
       .pipe(uglify())
       .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./www/js'))
+      .pipe(gulp.dest('./www/js'));
   }
 
   if (watch) {
