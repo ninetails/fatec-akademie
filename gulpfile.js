@@ -5,8 +5,16 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
-var sh = require('shelljs');
 var stylus = require('gulp-stylus');
+var sourcemaps = require('gulp-sourcemaps');
+var uglify = require('gulp-uglify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var browserify = require('browserify');
+var watchify = require('watchify');
+var babel = require('babelify');
+var shim = require('browserify-shim');
+var sh = require('shelljs');
 
 var paths = {
   sass: ['./scss/**/*.scss'],
@@ -39,7 +47,38 @@ gulp.task('stylus', function(done) {
     .on('end', done);
 });
 
-gulp.task('watch', function() {
+function compile(watch) {
+  var bundler = watchify(browserify('./www/js/app/index.js', { debug: true }).transform(babel).transform(shim));
+
+  function rebundle() {
+    bundler.bundle()
+      .on('error', function (err) { console.error(err); this.emit('end'); })
+      .pipe(source('build.js'))
+      .pipe(buffer())
+      .pipe(uglify())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('./www/js'))
+  }
+
+  if (watch) {
+    bundler.on('update', function () {
+      console.log('-> bundling...');
+      rebundle();
+    });
+  }
+
+  rebundle();
+}
+
+function watch() {
+  return compile(true);
+}
+
+gulp.task('browserify', function () { return compile(); });
+gulp.task('watchify', function () { return watch(); });
+
+gulp.task('watch', ['watchify'], function() {
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.stylus, ['stylus']);
 });

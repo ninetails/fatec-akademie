@@ -11,3 +11,4 @@ server/config.js
 # output
 www/css
 www/lib
+www/js/*.js*
