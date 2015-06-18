@@ -8,6 +8,13 @@ app.use(morgan());
 app.use(express.static('www'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  if ( !!req.headers && !!req.headers['x-request-source'] ) {
+    req.origin = req.headers['x-request-source'] === 'app' ? 'app' : 'web' ;
+  }
+  next();
+});
+
 app.use('/', require('./modules/users'));
 
 app.get('/', function (req, res) {
