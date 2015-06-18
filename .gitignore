@@ -12,3 +12,6 @@ server/config.js
 www/css
 www/lib
 www/js/*.js*
+
+# sublime
+*.sublime*

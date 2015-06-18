@@ -8,12 +8,12 @@ app.use(morgan());
 app.use(express.static('www'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', require('./users'));
+app.use('/', require('./modules/users'));
 
 app.get('/', function (req, res) {
   res.sendFile('www/index.html');
 });
 
 var server = app.listen(3000, function () {
-  console.log(util.format('app listening at http://%s:%s', server.address().address, server.address().port));
+  console.log(util.format('app listening at port %s', server.address().port));
 });
