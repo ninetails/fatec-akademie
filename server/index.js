@@ -9,7 +9,7 @@ var app = express();
 app.set('db', mongoose.connect('mongodb://localhost/akademie'));
 
 // middlewares
-app.use(cors());
+app.use(cors({ origin: true }));
 app.use(morgan());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -35,6 +35,6 @@ app.get('/', function (req, res) {
 });
 
 // server
-var server = app.listen(3000, function () {
+var server = app.listen(80, function () {
   console.log(util.format('app listening at port %s', server.address().port));
 });

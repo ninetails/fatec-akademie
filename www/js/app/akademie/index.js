@@ -20,8 +20,4 @@ var app = module.exports = require('angular')
     });
   }])
 
-  .config(require('./config'))
-
-  .controller('IndexController', ['$scope', function($scope) {
-    console.log('index yay!');
-  }]);
+  .config(require('./config'));

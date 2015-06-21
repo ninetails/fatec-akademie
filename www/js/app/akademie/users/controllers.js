@@ -1,5 +1,10 @@
 var app = module.exports = require('angular').module('akademie.users.controllers', [])
 
+.controller('LogoutController', ['$scope', 'LoginService', '$state', function($scope, LoginService, $state) {
+  LoginService.logout();
+  $state.go('users-login');
+}])
+
 .controller('LoginController', ['$scope', 'LoginService', '$ionicPopup', '$state', function($scope, LoginService, $ionicPopup, $state) {
   $scope.data = {};
 
