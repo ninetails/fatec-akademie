@@ -4,9 +4,10 @@
  */
 
 var bcrypt = require('bcrypt');
+var validator = require('validator');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var SALT_WORK_FACTOR = 99;
+var SALT_WORK_FACTOR = 10;
 
 var userSchema = new Schema({
   username: { type: String, required: true, index: { unique: true }, lowercase: true, trim: true },
@@ -41,7 +42,7 @@ userSchema.pre('save', (next) => {
       if (err) return next(err);
 
       user.password = hash;
-      next();
+      return next();
     });
   });
 });
@@ -55,22 +56,22 @@ userSchema.methods.comparePassword = (candidate, cb) => {
 
 var User = module.exports = mongoose.model("User", userSchema);
 
-User.schema.path('username').validate((value) => {
-  return /^([\W\-\.\_]+)$/i.test(value);
-}, 'Nome de usuário inválido');
+User.schema.path('username').validate((value, respond) => {
+  respond(value.length > 4 && /^(\w[\w\-\.\_]+)$/i.test(value));
+}, 'Nome de usuÃ¡rio invÃ¡lido');
 
 User.schema.path('username').validate((value, respond) => {
   User.findOne({username: value}, (err, user) => {
-    if (!!user) respond(false);
+    respond(!user);
   });
-}, 'Nome de usuário já existe');
+}, 'Nome de usuÃ¡rio jÃ¡ existe');
 
 User.schema.path('email').validate((value, respond) => {
-  return /^([\W\-\_]+\.?)+@(\.[\W\-\_]+)+$/.test(value);
-}, 'Email inválido.');
+  respond(validator.isEmail(value));
+}, 'Email invÃ¡lido.');
 
 User.schema.path('email').validate((value, respond) => {
   User.findOne({email: value}, (err, user) => {
-    if (!!user) respond(false);
+    respond(!user);
   });
-}, 'Email já registrado, insira um outro email');
+}, 'Email jÃ¡ registrado, insira um outro email');

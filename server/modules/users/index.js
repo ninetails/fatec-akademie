@@ -9,41 +9,107 @@ app.post('/login', (req, res) => {
     res.jsonp({
       error: {
         errno: 1,
-        err: "Blank credentials"
+        msg: "Blank credentials"
       }
     });
+
+    return res.end();
   }
 
-  User.findOne({username: req.body.user}, (err, user) => {
+  User.findOne({username: req.body.user}, '_id username password first_name measure type created_at last_sync sync_key', (err, user) => {
     if (!!err) throw err;
 
     if (!user) {
       res.jsonp({
         error: {
           errno: 2,
-          err: "Wrong credentials"
+          msg: "Wrong credentials"
         }
       });
-    } else {
-      user.comparePassword(req.body.pass, (err, isMatch) => {
-        if (err) throw err;
 
-        if (!isMatch) {
-          res.jsonp({
-            error: {
-              errno: 2,
-              err: "Wrong credentials"
-            }
-          });
-        } else {
-          res.jsonp({
-            error: null,
-            user: user
-          });
+      return res.end();
+    }
+
+    user.comparePassword(req.body.pass, (err, isMatch) => {
+      if (err) throw err;
+
+      if (!isMatch) {
+        res.jsonp({
+          error: {
+            errno: 2,
+            msg: "Wrong credentials"
+          }
+        });
+
+        return res.end();
+      }
+
+      var out = user.toObject();
+      delete out['password'];
+
+      res.jsonp({
+        error: null,
+        user: out
+      });
+
+      res.end();
+    });
+
+  });
+});
+
+app.post('/signup', (req, res) => {
+  var requiredFields = ['username', 'password', 'email', 'first_name'];
+  var data = {};
+
+  for (var key in req.body) {
+    data[key] = req.body[key].trim();
+  }
+
+  requiredFields.forEach((field) => {
+    if (!data[field]) {
+      res.jsonp({
+        error: {
+          errno: 1,
+          msg: "Sent blank required field"
         }
       });
+
+      return res.end();
     }
   });
+
+  if (data.password.length < 6) {
+    res.jsonp({
+      error: {
+        errno: 2,
+        msg: "Password needs to be 6 characters long at least"
+      }
+    });
+
+    return res.end();
+  }
+
+  var newUser = new User(data);
+  newUser.save((err) => {console.log(err);
+    if (!!err && err.name === 'ValidationError') {
+      res.jsonp({
+        error: {
+          errno: 3,
+          error: err
+        }
+      });
+      return res.end();
+    }
+
+    res.jsonp({
+      error: null,
+      success: "User successfully created"
+    });
+    return res.end();
+
+  });
+
 });
 
 module.exports = app;
