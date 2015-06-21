@@ -1,4 +1,5 @@
 {
   "name": "akademie",
-  "app_id": ""
+  "app_id": "",
+  "gulpStartupTasks": ["watch"]
 }

@@ -6,9 +6,9 @@
     "postinstall": "bower install && npm run-script gulp",
     "gulp": "gulp",
     "gulp-watch": "gulp watch",
-    "server": "node --harmony ./server",
-    "serve": "nodemon --harmony -w ./www ./server",
-    "ionic-serve": "ionic serve"
+    "serve": "node --harmony ./server",
+    "nodemon": "nodemon --harmony -w ./server ./server",
+    "ionic-serve": "ionic serve --lab"
   },
   "browserify-shim": {
     "jquery": "global:$",
