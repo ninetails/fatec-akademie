@@ -2,6 +2,14 @@
   "name": "akademie",
   "version": "1.0.0",
   "description": "akademie: An Ionic project",
+  "scripts": {
+    "postinstall": "bower install && npm run-script gulp",
+    "gulp": "gulp",
+    "gulp-watch": "gulp watch",
+    "server": "node --harmony ./server",
+    "serve": "nodemon --harmony -w ./www ./server",
+    "ionic-serve": "ionic serve"
+  },
   "browserify-shim": {
     "jquery": "global:$",
     "angular": "global:angular",
@@ -38,7 +46,8 @@
     "stylus": "^0.51.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.2.2"
+    "watchify": "^3.2.2",
+    "nodemon": "*"
   },
   "cordovaPlugins": [
     "cordova-plugin-device",

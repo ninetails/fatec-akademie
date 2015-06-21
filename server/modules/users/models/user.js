@@ -14,7 +14,8 @@ var userSchema = new Schema({
   type: { type: String, default: 'user' },
   created_at: { type: Date, default: Date.now },
   modified_at: { type: Date },
-  last_sync: { type: Date }
+  last_sync: { type: Date },
+  sync_key: String
 });
 
 userSchema.pre('save', (next) => {
