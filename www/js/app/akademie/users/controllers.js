@@ -4,6 +4,7 @@ var app = module.exports = require('angular').module('akademie.users.controllers
   $scope.data = {};
 
   $scope.login = function () {
+    $('form *').blur();
     LoginService.login($scope.data.username, $scope.data.password)
       .success(function (data) {
         $state.go('index');

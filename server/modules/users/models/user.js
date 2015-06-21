@@ -1,3 +1,8 @@
+/**
+ * Using login from:
+ * http://devsmash.com/blog/password-authentication-with-mongoose-and-bcrypt
+ */
+
 var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -19,13 +24,13 @@ var userSchema = new Schema({
 });
 
 userSchema.pre('save', (next) => {
-  let user = this;
+  var user = this;
 
   // updated_at
-  user.updated_at = new Date();
+  this.updated_at = new Date();
 
   // password
-  if (!user.isModified('password')) {
+  if (!this.isModified('password')) {
     return next();
   }
 
