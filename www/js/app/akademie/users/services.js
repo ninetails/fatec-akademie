@@ -10,6 +10,45 @@ var app = module.exports = require('angular').module('akademie.users.services', 
     logout: function () {
       $localStorage.$reset();
     },
+    signup: function (data) {
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+      var req = {
+        method: "POST",
+        url: "http://ionic.dev/signup",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "x-request-source": "app"
+        },
+        data: $.param(data)
+      };
+
+      $http(req)
+        .success((data) => {
+          if (!!data.error) {
+            deferred.reject(data.error.message);
+          } else {
+            $localStorage.user = data.user;
+            deferred.resolve(data);
+          }
+        })
+        .error(() => {
+          deferred.reject('Houve um erro ao tentar cadastrar.');
+          console.log(arguments);
+        });
+
+      promise.success = function (fn) {
+        promise.then(fn);
+        return promise;
+      };
+
+      promise.error = function (fn) {
+        promise.then(null, fn);
+        return promise;
+      };
+
+      return promise;
+    },
     login: function (name, pass) {
       var deferred = $q.defer();
       var promise = deferred.promise;
@@ -26,18 +65,19 @@ var app = module.exports = require('angular').module('akademie.users.services', 
         })
       };
 
-      $http(req).success((data) => {
-        if (!!data.error) {
-          deferred.reject(data.error.msg);
-        } else {
-          $localStorage.user = data.user;
-          deferred.resolve(data);
-        }
-      })
-      .error(() => {
-        deferred.reject('Wrong credentials.');
-        console.error(arguments);
-      });
+      $http(req)
+        .success((data) => {
+          if (!!data.error) {
+            deferred.reject(data.error.msg);
+          } else {
+            $localStorage.user = data.user;
+            deferred.resolve(data);
+          }
+        })
+        .error(() => {
+          deferred.reject('Wrong credentials.');
+          console.error(arguments);
+        });
 
       promise.success = function (fn) {
         promise.then(fn);

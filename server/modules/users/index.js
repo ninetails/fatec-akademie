@@ -91,7 +91,7 @@ app.post('/signup', (req, res) => {
   }
 
   var newUser = new User(data);
-  newUser.save((err) => {console.log(err);
+  newUser.save((err) => {
     if (!!err && err.name === 'ValidationError') {
       res.jsonp({
         error: {
@@ -102,9 +102,13 @@ app.post('/signup', (req, res) => {
       return res.end();
     }
 
+    var userObj = newUser.toObject();
+    delete userObj['__v'];
+    delete userObj['password'];
     res.jsonp({
       error: null,
-      success: "User successfully created"
+      success: "User successfully created",
+      user: newUser.toObject()
     });
     return res.end();
 

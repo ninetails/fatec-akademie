@@ -23,6 +23,12 @@ module.exports = [
         url: "/login",
         templateUrl: 'templates/users/login.html',
         controller: 'LoginController'
+      })
+
+      .state('users-signup', {
+        url: "/signup",
+        templateUrl: 'templates/users/signup.html',
+        controller: 'SignupController'
       });
 
   }
