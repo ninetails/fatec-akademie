@@ -20,7 +20,7 @@ var app = module.exports = require('angular').module('akademie.users.controllers
 
       LoginService.login($scope.data.username, $scope.data.password)
         .success(function (data) {
-          $state.go('index');
+          $state.go('main.dash');
         })
         .error(function (data) {
           var popup = $ionicPopup.alert({
@@ -52,7 +52,7 @@ var app = module.exports = require('angular').module('akademie.users.controllers
 
     LoginService.signup($scope.data)
       .success((data) => {
-        $state.go('index');
+        $state.go('main.dash');
       })
       .error((data) => {
         var popup = $ionicPopup.alert({

@@ -1,10 +1,10 @@
-var resolveIfLogged = function () {
+var resolveIfLogged = () => {
   return {
-    load: ['$q', '$location', 'LoginService', function ($q, $location, LoginService) {
+    load: ['$q', '$location', 'LoginService', ($q, $location, LoginService) => {
       var deferred = $q.defer();
       if (LoginService.isLogged()) {
         deferred.resolve();
-        $location.path('/tabs/dash');
+        $location.path('/main/dash');
       } else {
         $location.path('/login');
       }
@@ -15,18 +15,10 @@ var resolveIfLogged = function () {
 };
 
 module.exports = [
-  '$stateProvider',
   '$urlRouterProvider',
-  function($stateProvider, $urlRouterProvider) {
-    $stateProvider
+  ($urlRouterProvider) => {
 
-      .state('index', {
-        url: "/",
-        templateUrl: 'templates/index.html',
-        resolve: resolveIfLogged()
-      });
-
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/main/dash');
 
   }
 ];
