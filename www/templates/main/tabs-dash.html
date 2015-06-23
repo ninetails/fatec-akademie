@@ -1,5 +1,7 @@
-<ion-view view-title="Status">
+<ion-view view-title="Status" ng-init="init()">
   <ion-content class="padding">
-    <p>Hello!</p>
+    <div class="list card" ng-if="!storage.user.measure">
+      <a href="#/main/measure" class="item item-icon-left"><i class="icon ion-ios-calculator"></i>Adicione suas medidas</a>
+    </div>
   </ion-content>
 </ion-view>

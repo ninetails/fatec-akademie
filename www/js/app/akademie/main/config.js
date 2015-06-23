@@ -14,7 +14,8 @@ module.exports = [
         url: '/dash',
         views: {
           'main-dash': {
-            templateUrl: 'templates/main/tabs-dash.html'
+            templateUrl: 'templates/main/tabs-dash.html',
+            controller: 'DashController'
           }
         }
       })
@@ -29,10 +30,23 @@ module.exports = [
       })
 
       .state('main.measure', {
+        cache: false,
         url: '/measure',
         views: {
           'main-measure': {
-            templateUrl: 'templates/main/tabs-measure.html'
+            templateUrl: 'templates/main/tabs-measure.html',
+            controller: 'MeasureController'
+          }
+        }
+      })
+
+      .state('main.measure-edit', {
+        cache: false,
+        url: '/measure/:measureId',
+        views: {
+          'main-measure': {
+            templateUrl: 'templates/main/tabs-measure-edit.html',
+            controller: 'MeasureEditController'
           }
         }
       })

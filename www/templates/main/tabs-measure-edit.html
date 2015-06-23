@@ -1,0 +1,15 @@
+<ion-view view-title="{{measure.name}}" cache-view="false">
+  <ion-content class="padding">
+    <form ng-submit="save()">
+      <div class="list list-inset">
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <input type="text" required ng-model="data.value">
+          </label>
+          <input type="text" class="small" disabled ng-model="measure.unit">
+        </div>
+      </div>
+      <button type="submit" class="button button-block button-positive">Salvar</button>
+    </form>
+  </ion-content>
+</ion-view>
