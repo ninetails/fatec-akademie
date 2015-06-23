@@ -1,4 +1,4 @@
-<ion-view view-title="{{measure.name}}" cache-view="false">
+<ion-view view-title="{{measure.text}}" cache-view="false" ng-init="init()">
   <ion-content class="padding">
     <form ng-submit="save()">
       <div class="list list-inset">
@@ -8,6 +8,9 @@
           </label>
           <input type="text" class="small" disabled ng-model="measure.unit">
         </div>
+        <label class="item item-input">
+          <input type="date" required ng-model="data.when">
+        </label>
       </div>
       <button type="submit" class="button button-block button-positive">Salvar</button>
     </form>

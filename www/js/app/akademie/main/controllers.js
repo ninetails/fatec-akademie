@@ -8,23 +8,23 @@ var app = module.exports = require('angular').module('akademie.main.controllers'
   };
 }])
 
-.controller('MeasureController', ['$scope', '$localStorage', 'measure_types', ($scope, $localStorage, measure_types) => {
+.controller('MeasureController', ['$scope', '$localStorage', 'MeasureTypes', ($scope, $localStorage, MeasureTypes) => {
   $scope.storage = $localStorage;
-  $scope.measure_types = measure_types;
+  $scope.measure_types = MeasureTypes.all();
 }])
 
-.controller('MeasureEditController', ['$ionicHistory', '$state', '$ionicPopup', '$scope', '$stateParams', '$localStorage', 'measure_types', ($ionicHistory, $state, $ionicPopup, $scope, $stateParams, $localStorage, measure_types) => {
+.controller('MeasureEditController', ['$ionicHistory', '$state', '$ionicPopup', '$scope', '$stateParams', '$localStorage', 'MeasureTypes', ($ionicHistory, $state, $ionicPopup, $scope, $stateParams, $localStorage, MeasureTypes) => {
   $scope.storage = $localStorage;
 
-  $scope.data = {};
-
-  if (!!$scope.storage.user.measure && !!$scope.storage.user.measure[parseInt($stateParams.measureId, 10)]) {
-    $scope.data.value = $scope.storage.user.measure[parseInt($stateParams.measureId, 10)];
-  }
-
-  $scope.measure = measure_types.filter((el) => {
-    return el.name = $stateParams.measureId;
-  }).pop();
+  $scope.init = () => {
+    $scope.data = {
+      when: new Date()
+    };
+    $scope.measure = MeasureTypes.getById($stateParams.measureId);
+    if (!!$scope.storage.user.measure && !!$scope.storage.user.measure[parseInt($stateParams.measureId, 10)]) {
+      $scope.data.value = $scope.storage.user.measure[parseInt($stateParams.measureId, 10)];
+    }
+  };
 
   $scope.save = () => {
     if (!$scope.data.value || !$scope.data.value.length || !$.isNumeric($scope.data.value.replace(/\,/, '.'))) {
