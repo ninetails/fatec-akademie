@@ -4,20 +4,27 @@ var app = module.exports = require('angular').module('akademie.main.controllers'
 .controller('DashController', ['$scope', '$localStorage', ($scope, $localStorage) => {
   $scope.storage = $localStorage;
   $scope.init = () => {
-    console.log($scope.storage.user);
+    console.log($scope.storage);
   };
 }])
 
-.controller('MeasureController', ['$scope', '$localStorage', 'MeasureTypes', ($scope, $localStorage, MeasureTypes) => {
+.controller('MeasureController', ['$scope', '$localStorage', 'MeasureTypes', 'Measure', ($scope, $localStorage, MeasureTypes, Measure) => {
   $scope.storage = $localStorage;
+
+  $scope.getMeasure = (id) => {
+    id = parseInt(id, 10);
+    return !!$scope.storage.user.measure[id] ? $scope.storage.user.measure[id] : null;
+  };
+
   $scope.measure_types = MeasureTypes.all();
 }])
 
-.controller('MeasureEditController', ['$ionicHistory', '$state', '$ionicPopup', '$scope', '$stateParams', '$localStorage', 'MeasureTypes', ($ionicHistory, $state, $ionicPopup, $scope, $stateParams, $localStorage, MeasureTypes) => {
+.controller('EditMeasureController', ['$ionicHistory', '$state', '$ionicPopup', '$scope', '$stateParams', '$localStorage', 'MeasureTypes', 'Measure', ($ionicHistory, $state, $ionicPopup, $scope, $stateParams, $localStorage, MeasureTypes, Measure) => {
   $scope.storage = $localStorage;
 
   $scope.init = () => {
     $scope.data = {
+      value: !!$scope.storage.user.measure[$stateParams.measureId] ? $scope.storage.user.measure[$stateParams.measureId] : null,
       when: new Date()
     };
     $scope.measure = MeasureTypes.getById($stateParams.measureId);
@@ -27,7 +34,8 @@ var app = module.exports = require('angular').module('akademie.main.controllers'
   };
 
   $scope.save = () => {
-    if (!$scope.data.value || !$scope.data.value.length || !$.isNumeric($scope.data.value.replace(/\,/, '.'))) {
+    var value = $scope.data.value.toString() || null;
+    if (!value || !value.length || !$.isNumeric(value.replace(/\,/, '.'))) {
       var popup = $ionicPopup.alert({
         title: 'Input error',
         template: 'Por favor, insira um numero valido.'
@@ -35,9 +43,9 @@ var app = module.exports = require('angular').module('akademie.main.controllers'
       return;
     }
 
-    $scope.data.value = parseInt($scope.data.value, 10);
-    console.log($stateParams.measureId, $scope.data.value);
+    value = parseFloat(value.replace(/\,/, '.'));
+    Measure.add($stateParams.measureId, value, $scope.data.when);
     // $ionicHistory.goBack();
-    $state.go('main.measure', {}, {reload:true});
+    $state.go('main.measure');
   };
 }]);

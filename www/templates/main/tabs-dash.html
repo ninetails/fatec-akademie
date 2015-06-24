@@ -3,5 +3,9 @@
     <div class="list card" ng-if="!storage.user.measure">
       <a href="#/main/measure" class="item item-icon-left"><i class="icon ion-ios-calculator"></i>Adicione suas medidas</a>
     </div>
+
+    <div class="list card" ng-if="!!storage.user.measure">
+      <button class="button button-calm" ng-click="init()">console.log</button>
+    </div>
   </ion-content>
 </ion-view>

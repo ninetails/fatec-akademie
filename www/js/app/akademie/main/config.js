@@ -1,13 +1,29 @@
+var resolveIfLogged = () => {
+  return {
+    load: ['$q', '$location', 'LoginService', ($q, $location, LoginService) => {
+      var deferred = $q.defer();
+      if (LoginService.isLogged()) {
+        deferred.resolve();
+        $location.path('/main/dash');
+      } else {
+        $location.path('/login');
+      }
+
+      return deferred.promise;
+    }]
+  };
+};
 
 module.exports = [
-  '$stateProvider',
-  ($stateProvider) => {
+  '$stateProvider', '$urlRouterProvider',
+  ($stateProvider, $urlRouterProvider) => {
     $stateProvider
 
       .state('main', {
         url: '/main',
         abstract: true,
-        templateUrl: 'templates/main/tabs.html'
+        templateUrl: 'templates/main/tabs.html',
+        resolve: resolveIfLogged()
       })
 
       .state('main.dash', {
@@ -46,7 +62,7 @@ module.exports = [
         views: {
           'main-measure': {
             templateUrl: 'templates/main/tabs-measure-edit.html',
-            controller: 'MeasureEditController'
+            controller: 'EditMeasureController'
           }
         }
       })
@@ -71,6 +87,8 @@ module.exports = [
       //   templateUrl: 'templates/main/measures.html',
       //   // controller: 'SignupController'
       // });
+
+  $urlRouterProvider.otherwise('/main/dash');
 
   }
 ];

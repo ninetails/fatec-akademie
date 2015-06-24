@@ -1,11 +1,10 @@
-<ion-view view-title="Medidas" cache-view="false">
+<ion-view view-title="Medidas">
   <ion-content>
     <ion-list>
-      <ion-item class="item item-icon-right" ng-repeat="type in measure_types">
+      <ion-item class="item item-icon-right" ng-repeat="type in measure_types" ng-href="#/main/measure/{{type.id}}">
         {{type.text}}
-        <a ng-href="#/main/measure/{{type.id}}">
-          <i class="icon ion-chevron-right"></i>
-        </a>
+        <span class="item-note" ng-show="!!getMeasure(type.id)">{{getMeasure(type.id)}} {{type.unit}}</span>
+        <i class="icon ion-chevron-right"></i>
       </ion-item>
     </ion-list>
   </ion-content>

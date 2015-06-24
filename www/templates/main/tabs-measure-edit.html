@@ -1,15 +1,13 @@
-<ion-view view-title="{{measure.text}}" cache-view="false" ng-init="init()">
+<ion-view view-title="{{measure.text}}" ng-init="init()">
   <ion-content class="padding">
     <form ng-submit="save()">
       <div class="list list-inset">
-        <div class="item item-input-inset">
-          <label class="item-input-wrapper">
-            <input type="text" required ng-model="data.value">
-          </label>
-          <input type="text" class="small" disabled ng-model="measure.unit">
-        </div>
         <label class="item item-input">
-          <input type="date" required ng-model="data.when">
+          <input type="text" style="text-align: right;" ng-model="data.value">
+          <span style="float: right; margin: 0 1em;">{{measure.unit}}</span>
+        </label>
+        <label class="item item-input">
+          <input type="date" ng-model="data.when">
         </label>
       </div>
       <button type="submit" class="button button-block button-positive">Salvar</button>

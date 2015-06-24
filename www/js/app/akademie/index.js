@@ -19,6 +19,4 @@ var app = module.exports = require('angular')
         StatusBar.styleLightContent();
       }
     });
-  }])
-
-  .config(require('./config'));
+  }]);
