@@ -36,17 +36,17 @@ module.exports = [
         }
       })
 
-      .state('main.training', {
-        url: '/training',
+      .state('main.training-new', {
+        url: '/training/new',
         views: {
-          'main-training': {
-            templateUrl: 'templates/main/tabs-training.html'
+          'main-dash': {
+            templateUrl: 'templates/main/training/form.html',
+            controller: 'CreateTrainingController'
           }
         }
       })
 
       .state('main.measure', {
-        cache: false,
         url: '/measure',
         views: {
           'main-measure': {
@@ -57,7 +57,6 @@ module.exports = [
       })
 
       .state('main.measure-edit', {
-        cache: false,
         url: '/measure/:measureId',
         views: {
           'main-measure': {

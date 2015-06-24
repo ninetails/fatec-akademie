@@ -10,11 +10,14 @@
     "nodemon": "nodemon --harmony -w ./server ./server",
     "ionic-serve": "ionic serve --lab -b"
   },
+  "browser": {
+    "jquery": "./www/lib/jquery/dist/jquery.min.js",
+    "ionic": "./www/lib/ionic/js/ionic.bundle.js",
+    "moment": "./www/lib/moment/min/moment.min.js"
+  },
   "browserify-shim": {
-    "jquery": "global:$",
     "angular": "global:angular",
-    "cordova": "global:cordova",
-    "ionic": "global:ionic"
+    "cordova": "global:cordova"
   },
   "dependencies": {
     "bcrypt": "^0.8.3",

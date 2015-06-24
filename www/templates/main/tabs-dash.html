@@ -1,11 +1,11 @@
 <ion-view view-title="Status" ng-init="init()">
-  <ion-content class="padding">
+  <ion-content>
     <div class="list card" ng-if="!storage.user.measure">
       <a href="#/main/measure" class="item item-icon-left"><i class="icon ion-ios-calculator"></i>Adicione suas medidas</a>
     </div>
 
-    <div class="list card" ng-if="!!storage.user.measure">
-      <button class="button button-calm" ng-click="init()">console.log</button>
-    </div>
+    <button class="button button-block button-positive" ng-if="!!storage.user.measure" ng-click="newTraining()">
+      Iniciar novo treino
+    </button>
   </ion-content>
 </ion-view>

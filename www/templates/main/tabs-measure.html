@@ -1,7 +1,7 @@
 <ion-view view-title="Medidas">
   <ion-content>
     <ion-list>
-      <ion-item class="item item-icon-right" ng-repeat="type in measure_types" ng-href="#/main/measure/{{type.id}}">
+      <ion-item class="item item-icon-right" collection-repeat="type in measure_types" ng-href="#/main/measure/{{type.id}}">
         {{type.text}}
         <span class="item-note" ng-show="!!getMeasure(type.id)">{{getMeasure(type.id)}} {{type.unit}}</span>
         <i class="icon ion-chevron-right"></i>

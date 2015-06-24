@@ -1,0 +1,29 @@
+<ion-view view-title="Treino" ng-init="init()">
+  <ion-content class="padding">
+    <form ng-submit="submit()">
+      <div class="list list-inset">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Nome do treino</span>
+          <input type="text" placeholder="Meu treino" ng-model="data.name" tabindex="1">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Tipo</span>
+          <select ng-model="data.train_type">
+            <option value="1">Musculacao</option>
+            <option value="2">Yoga</option>
+            <option value="3">Danca</option>
+          </select>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Termino</span>
+          <input type="date" ng-model="data.until">
+        </label>
+        <li class="item item-input" collection-repeat="measure in measures">
+          <input type="text" disabled ng-model="measure">
+          <input type="text" ng-model="data.objective[$index]">
+        </li>
+      </div>
+      <button type="submit" class="button button-block button-calm">Criar treino</button>
+    </form>
+  </ion-content>
+</ion-view>

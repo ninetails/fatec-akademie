@@ -12,5 +12,12 @@
       </div>
       <button type="submit" class="button button-block button-positive">Salvar</button>
     </form>
+    <ion-list class="list list-inset" ng-if="!!measures">
+      <ion-item class="item item-divider">Historico</ion-item>
+      <ion-item class="item item-icon-right" collection-repeat="record in measures">
+        {{formatDate(record.when)}}
+        <span class="item-note">{{record.value}} {{measure.unit}}</span>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

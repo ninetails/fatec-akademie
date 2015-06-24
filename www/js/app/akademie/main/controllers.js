@@ -1,10 +1,14 @@
 var $ = require('jquery');
+var moment = require('moment');
 var app = module.exports = require('angular').module('akademie.main.controllers', [])
 
-.controller('DashController', ['$scope', '$localStorage', ($scope, $localStorage) => {
+.controller('DashController', ['$state', '$scope', '$localStorage', ($state, $scope, $localStorage) => {
   $scope.storage = $localStorage;
   $scope.init = () => {
     console.log($scope.storage);
+  };
+  $scope.newTraining = () => {
+    $state.go('main.training-new');
   };
 }])
 
@@ -27,10 +31,14 @@ var app = module.exports = require('angular').module('akademie.main.controllers'
       value: !!$scope.storage.user.measure[$stateParams.measureId] ? $scope.storage.user.measure[$stateParams.measureId] : null,
       when: new Date()
     };
+
     $scope.measure = MeasureTypes.getById($stateParams.measureId);
     if (!!$scope.storage.user.measure && !!$scope.storage.user.measure[parseInt($stateParams.measureId, 10)]) {
       $scope.data.value = $scope.storage.user.measure[parseInt($stateParams.measureId, 10)];
     }
+
+    $scope.measures = Measure.byType($stateParams.measureId);
+    console.log($scope.measures);
   };
 
   $scope.save = () => {
@@ -48,4 +56,13 @@ var app = module.exports = require('angular').module('akademie.main.controllers'
     // $ionicHistory.goBack();
     $state.go('main.measure');
   };
+
+  $scope.formatDate = (date) => {
+    return moment(date).format('DD/MM/YYYY');
+  };
+}])
+
+.controller('CreateTrainingController', ['$scope', '$localStorage', 'MeasureTypes', 'Measure', ($scope, $localStorage, MeasureTypes, Measure) => {
+  $scope.storage = $localStorage;
+  $scope.measures = $scope.storage.user.measure || null;
 }]);
