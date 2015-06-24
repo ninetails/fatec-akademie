@@ -12,6 +12,7 @@ app.set('db', mongoose.connect('mongodb://localhost/akademie'));
 app.use(cors({ origin: true }));
 app.use(morgan());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // static
 app.use(express.static('www'));
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 
 // modules
 app.use('/', require('./modules/users'));
+app.use('/akademie', require('./modules/akademie'));
 
 
 // index

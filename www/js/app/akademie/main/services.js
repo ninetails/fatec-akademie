@@ -1,7 +1,55 @@
 var $ = require('jquery');
 var app = module.exports = require('angular').module('akademie.main.services', [])
 
-.service('MeasureTypes', ['$q', ($q) => {
+.service('SyncService', ['$q', '$http', '$localStorage', ($q, $http, $localStorage) => {
+  return {
+    sync: () => {
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+      var req = {
+        method: "POST",
+        url: "http://ionic.dev/akademie/sync",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "x-request-source": "app"
+        }
+      };
+      var data = {};
+
+      data.measures = $localStorage.measures;
+
+      req.data = JSON.stringify(data);
+
+      $http(req)
+        .success((data) => {
+          if (!!data.error) {
+            deferred.reject(data.error.message);
+          } else {
+            $localStorage.user = data.user;
+            deferred.resolve(data);
+          }
+        })
+        .error(() => {
+          deferred.reject('Houve um erro ao sincronizar dados.');
+          console.log(arguments);
+        });
+
+      promise.success = function (fn) {
+        promise.then(fn);
+        return promise;
+      };
+
+      promise.error = function (fn) {
+        promise.then(null, fn);
+        return promise;
+      };
+
+      return promise;
+    }
+  }
+}])
+
+.service('MeasureTypes', () => {
   var types = [
       {
         id: 1,
@@ -37,7 +85,7 @@ var app = module.exports = require('angular').module('akademie.main.services', [
       return !!type.length?type.pop():null;
     }
   };
-}])
+})
 
 .service('Measure', ['$q', '$localStorage', ($q, $localStorage) => {
   $localStorage.measures = !!$localStorage.measures ? $localStorage.measures : [];

@@ -2,13 +2,24 @@ var $ = require('jquery');
 var moment = require('moment');
 var app = module.exports = require('angular').module('akademie.main.controllers', [])
 
-.controller('DashController', ['$state', '$scope', '$localStorage', ($state, $scope, $localStorage) => {
+.controller('DashController', ['$ionicPopup', '$state', '$scope', '$localStorage', 'SyncService', ($ionicPopup, $state, $scope, $localStorage, SyncService) => {
   $scope.storage = $localStorage;
   $scope.init = () => {
     console.log($scope.storage);
   };
+
   $scope.newTraining = () => {
     $state.go('main.training-new');
+  };
+
+  $scope.sync = () => {
+    SyncService.sync()
+      .success(() => {
+        var popup = $ionicPopup.alert({
+          title: 'Sync',
+          template: 'Seus dados foram sincronizados com sucesso.'
+        });
+      });
   };
 }])
 
