@@ -10,7 +10,6 @@ var app = module.exports = require('angular').module('akademie.main.services', [
         method: "POST",
         url: "http://ionic.dev/akademie/sync",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
           "x-request-source": "app"
         }
       };
@@ -23,9 +22,9 @@ var app = module.exports = require('angular').module('akademie.main.services', [
       $http(req)
         .success((data) => {
           if (!!data.error) {
-            deferred.reject(data.error.message);
+            deferred.reject(data.error);
           } else {
-            $localStorage.user = data.user;
+            console.log(data);
             deferred.resolve(data);
           }
         })

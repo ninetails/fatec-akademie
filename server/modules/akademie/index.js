@@ -2,10 +2,10 @@ var express = require('express');
 var app = express();
 
 app.post('/sync', (req, res) => {
-  console.log(req.body);
-  console.log(JSON.parse(req.body));
+  console.log(req.body.measures.length);
   res.jsonp({
-    error: null
+    error: null,
+    body: req.body
   });
 
   return res.end();

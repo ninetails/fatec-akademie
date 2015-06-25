@@ -14,7 +14,8 @@ var app = module.exports = require('angular').module('akademie.main.controllers'
 
   $scope.sync = () => {
     SyncService.sync()
-      .success(() => {
+      .success((data) => {
+        console.log(data);
         var popup = $ionicPopup.alert({
           title: 'Sync',
           template: 'Seus dados foram sincronizados com sucesso.'
