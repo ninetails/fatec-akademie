@@ -41,7 +41,7 @@ module.exports = [
         views: {
           'main-dash': {
             templateUrl: 'templates/main/training/form.html',
-            controller: 'CreateTrainingController'
+            controller: 'TrainingCreateController'
           }
         }
       })
@@ -61,7 +61,7 @@ module.exports = [
         views: {
           'main-measure': {
             templateUrl: 'templates/main/tabs-measure-edit.html',
-            controller: 'EditMeasureController'
+            controller: 'MeasureEditController'
           }
         }
       })
@@ -74,18 +74,6 @@ module.exports = [
           }
         }
       });
-
-      // .state('main-dash', {
-      //   url: "/dash",
-      //   templateUrl: 'templates/main/dash.html',
-      //   // controller: 'LoginController'
-      // })
-
-      // .state('main-measures', {
-      //   url: "/measures",
-      //   templateUrl: 'templates/main/measures.html',
-      //   // controller: 'SignupController'
-      // });
 
   $urlRouterProvider.otherwise('/main/dash');
 
