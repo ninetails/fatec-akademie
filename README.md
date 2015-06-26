@@ -34,6 +34,7 @@ Para subir um ambiente Linux numa maquina windows, recomendo utilizar o Vagrant:
 2. Instale os plugins: vagrant-hostsupdater e vagrant-timezone
 3. [Baixe os dois arquivos neste Gist](https://gist.github.com/ninetails/cc854e1a3f5729027ba2)
 4. Entre na pasta onde estao os dois arquivos e suba a maquina utilizando o comando `vagrant up`.
+5. Caso tenha instalado o ambiente que deixei no gist, ele ira abrir uma instancia do VirtualBox com o Ubuntu em modo GUI. Para rodar o modo GUI (xfce4), apos a maquina ter subido, logue no terminal (user vagrant, senha vagrant) e mande o comando `startxfce4&`.
 
 ### Instalacao do repositorio
 
