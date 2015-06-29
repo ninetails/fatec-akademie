@@ -15,7 +15,6 @@ module.exports = [
       }
 
       $scope.measures = Measure.byType($stateParams.measureId);
-      console.log($scope.measures);
     };
 
     $scope.save = () => {

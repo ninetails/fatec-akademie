@@ -9,7 +9,7 @@
         <label class="item item-input item-stacked-label">
           <span class="input-label">Tipo</span>
           <select ng-model="data.train_type">
-            <option value="1">Musculacao</option>
+            <option value="1" selected="selected">Musculacao</option>
             <option value="2">Yoga</option>
             <option value="3">Danca</option>
           </select>
@@ -18,12 +18,13 @@
           <span class="input-label">Termino</span>
           <input type="date" ng-model="data.until">
         </label>
-        <li class="item item-input" collection-repeat="measure in measures">
-          <input type="text" disabled ng-model="measure">
-          <input type="text" ng-model="data.objective[$index]">
+        <li class="item item-input" ng-repeat="measure in measures">
+          <span class="input-label">{{measure.name}}</span>
+          <input type="text" disabled ng-model="measure.value">
+          <input type="text" placeholder="nova medida" ng-model="data.objective[measure.id].value">
         </li>
       </div>
-      <button type="submit" class="button button-block button-calm">Criar treino</button>
+      <button type="submit" class="button button-block button-calm" ng-click="create()">Criar treino</button>
     </form>
   </ion-content>
 </ion-view>

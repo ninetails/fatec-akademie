@@ -4,13 +4,15 @@ module.exports = () => {
         id: 1,
         name: 'height',
         text: 'Altura',
-        unit: 'm'
+        unit: 'm',
+        measurable: false
       },
       {
         id: 2,
         name: 'weight',
         text: 'Peso',
-        unit: 'kg'
+        unit: 'kg',
+        measurable: true
       }
     ];
   var filter = (field, value) => {
