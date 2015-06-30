@@ -46,6 +46,16 @@ module.exports = [
         }
       })
 
+      // .state('main.training-new', {
+      //   url: '/training/:trainId',
+      //   views: {
+      //     'main-dash': {
+      //       templateUrl: 'templates/main/training/form.html',
+      //       controller: 'TrainingCreateController'
+      //     }
+      //   }
+      // })
+
       .state('main.measure', {
         url: '/measure',
         views: {
@@ -70,7 +80,8 @@ module.exports = [
         url: '/settings',
         views: {
           'main-settings': {
-            templateUrl: 'templates/main/tabs-settings.html'
+            templateUrl: 'templates/main/tabs-settings.html',
+            controller: 'SettingsController'
           }
         }
       });

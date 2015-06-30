@@ -14,7 +14,10 @@ module.exports = [
         };
         var data = {};
 
-        data.measures = $localStorage.measures;
+        data.user = $localStorage.user;
+        data.measures = !!$localStorage.measures ? $localStorage.measures.filter((el) => { return !el._id; }) : [];
+        data.trainings = !!$localStorage.trainings ? $localStorage.trainings.filter((el) => { return !el._id; }) : [];
+        data.checkins = !!$localStorage.checkins ? $localStorage.checkins.filter((el) => { return !el._id; }) : [];
 
         req.data = JSON.stringify(data);
 

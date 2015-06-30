@@ -1,6 +1,6 @@
 module.exports = [
-  '$ionicPopup', '$scope', '$localStorage', 'MeasureTypes', 'Measure',
-  ($ionicPopup,   $scope,   $localStorage,   MeasureTypes,   Measure) => {
+  '$ionicPopup', '$state', '$scope', '$localStorage', 'MeasureTypes', 'Measure',
+  ($ionicPopup,   $state,   $scope,   $localStorage,   MeasureTypes,   Measure) => {
     $scope.init = () => {
       $scope.data = {};
       $scope.storage = $localStorage;
@@ -21,6 +21,7 @@ module.exports = [
     };
 
     $scope.create = () => {
+      // validation
       if (!$scope.data.name) {
         var popup = $ionicPopup.alert({
           title: 'Input error',
@@ -44,13 +45,15 @@ module.exports = [
       }
 
       // some other data
-      $scope.data.created = new Date();
+      $scope.data.created_at = new Date();
 
       // saving
       if (!$localStorage.trainings) {
         $localStorage.trainings = [];
       }
       $localStorage.trainings.push($scope.data);
+
+      $state.go('main.dash');
     };
   }
 ];

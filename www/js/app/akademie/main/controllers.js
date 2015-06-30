@@ -9,5 +9,8 @@ var app = module.exports = require('angular').module('akademie.main.controllers'
 .controller('MeasureController', require('./controllers/measure'))
 .controller('MeasureEditController', require('./controllers/measureedit'))
 
+// settings
+.controller('SettingsController', require('./controllers/settings'))
+
 // training
 .controller('TrainingCreateController', require('./controllers/trainingcreate'));

@@ -1,7 +1,8 @@
-<ion-view view-title="Configuracoes">
+<ion-view view-title="Configuracoes" ng-init="init()">
   <ion-content>
     <ion-list>
-      <ion-item href="#/logout">Entrar com outro usuario</ion-item>
+      <ion-item ng-href="#/logout">Entrar com outro usuario</ion-item>
+      <ion-item ng-click="sync()">Sync</ion-item>
     </ion-list>
   </ion-content>
 </ion-view>
