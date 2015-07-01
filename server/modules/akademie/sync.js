@@ -51,15 +51,17 @@ module.exports = (req, res) => {
     };
 
     result.forEach((el, idx, arr) => {
-      if (el instanceof Measure) {
-        out.measures.push(el);
+      el = el.shift();
+      switch (el.constructor.modelName) {
+        case 'Measure':
+          out.measures.push(el);
+          break;
+        case 'Training':
+          out.trainings.push(el);
+          break;
       }
-
-      if (el instanceof Training) {
-        out.trainings.push(el);
-      }
-
     });
+    // change for get by last_sync
 
     res.jsonp(out);
     return res.end();
