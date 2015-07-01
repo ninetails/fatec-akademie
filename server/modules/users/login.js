@@ -41,14 +41,21 @@ module.exports = (req, res) => {
       }
 
       var out = user.toObject();
-      delete out['password'];
 
       res.jsonp({
         error: null,
-        user: out
+        user: {
+          _id:        out._id,
+          username:   out.username,
+          first_name: out.first_name,
+          last_name:  out.last_name,
+          type:       out.type,
+          measure:    out.measure,
+          created_at: out.created_at
+        }
       });
 
-      res.end();
+      return res.end();
     });
 
   });

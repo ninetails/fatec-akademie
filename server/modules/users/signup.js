@@ -45,12 +45,18 @@ module.exports = (req, res) => {
     }
 
     var userObj = newUser.toObject();
-    delete userObj['__v'];
-    delete userObj['password'];
     res.jsonp({
       error: null,
       success: "User successfully created",
-      user: newUser.toObject()
+      user: {
+        _id:        userObj._id,
+        username:   userObj.username,
+        first_name: userObj.first_name,
+        last_name:  userObj.last_name,
+        type:       userObj.type,
+        measure:    userObj.measure,
+        created_at: userObj.created_at
+      }
     });
     return res.end();
 

@@ -1,13 +1,13 @@
 module.exports = [
-  '$q', '$http', '$localStorage',
-  ($q,   $http,   $localStorage) => {
+  '$q', '$http', '$localStorage', 'server_url',
+  ($q,   $http,   $localStorage,   server_url) => {
     return {
       sync: () => {
         var deferred = $q.defer();
         var promise = deferred.promise;
         var req = {
           method: "POST",
-          url: "http://ionic.dev/akademie/sync",
+          url: server_url + "/akademie/sync",
           headers: {
             "x-request-source": "app"
           }

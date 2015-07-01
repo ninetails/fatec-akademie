@@ -37,6 +37,6 @@ app.get('/', function (req, res) {
 });
 
 // server
-var server = app.listen(80, function () {
+var server = app.listen(3000, function () {
   console.log(util.format('app listening at port %s', server.address().port));
 });

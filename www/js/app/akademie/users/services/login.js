@@ -1,6 +1,6 @@
 module.exports = [
-  '$q', '$http', '$localStorage',
-  ($q,   $http,   $localStorage) => {
+  '$q', '$http', '$localStorage', 'server_url',
+  ($q,   $http,   $localStorage,   server_url) => {
     return {
       isLogged: () => {
         return !!$localStorage.user;
@@ -13,7 +13,7 @@ module.exports = [
         var promise = deferred.promise;
         var req = {
           method: "POST",
-          url: "http://ionic.dev/signup",
+          url: server_url + "/signup",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             "x-request-source": "app"
@@ -52,7 +52,7 @@ module.exports = [
         var promise = deferred.promise;
         var req = {
           method: "POST",
-          url: "http://ionic.dev/login",
+          url: server_url + "/login",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             "x-request-source": "app"
