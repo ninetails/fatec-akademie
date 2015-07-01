@@ -27,6 +27,7 @@ module.exports = [
       })
 
       .state('main.dash', {
+        cache: false,
         url: '/dash',
         views: {
           'main-dash': {

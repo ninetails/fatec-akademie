@@ -4,19 +4,19 @@
       <div class="list list-inset">
         <label class="item item-input item-stacked-label">
           <span class="input-label">Nome do treino</span>
-          <input type="text" placeholder="Meu treino" ng-model="data.name" tabindex="1">
+          <input type="text" placeholder="Meu treino" required ng-model="data.name" tabindex="1">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Tipo</span>
-          <select ng-model="data.train_type">
-            <option value="1" selected="selected">Musculacao</option>
+          <select required ng-model="data.train_type">
+            <option value="1">Academia</option>
             <option value="2">Yoga</option>
             <option value="3">Danca</option>
           </select>
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Termino</span>
-          <input type="date" ng-model="data.until">
+          <input type="date" required ng-model="data.until">
         </label>
         <li class="item item-input" ng-repeat="measure in measures">
           <span class="input-label">{{measure.name}}</span>

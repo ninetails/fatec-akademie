@@ -1,9 +1,10 @@
 module.exports = [
-  '$ionicPopup', '$state', '$scope', '$localStorage',
-  ($ionicPopup,   $state,   $scope,   $localStorage) => {
+  '$window', '$ionicPopup', '$state', '$scope', '$localStorage', 'Training',
+  ($window,   $ionicPopup,   $state,   $scope,   $localStorage,   Training) => {
     $scope.init = () => {
       $scope.storage = $localStorage;
-      $scope.trainings = $scope.storage.trainings.filter((el) => { return moment(el.until).isAfter(moment()); }) || [];
+      $scope.trainings = Training.getActives();
+      console.log($scope.trainings);
     };
 
     $scope.newTraining = () => {
@@ -12,6 +13,19 @@ module.exports = [
 
     $scope.trainingCheckin = (training) => {
       console.log(training);
+    };
+
+    $scope.trainingDelete = (training) => {
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Voce tem certeza?',
+        template: "Deseja mesmo desistir deste treino?"
+      });
+
+      confirmPopup.then((res) => {
+        if (res) {
+          Training.remove(training) && $window.location.reload(true);
+        }
+      });
     };
   }
 ];

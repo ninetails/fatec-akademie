@@ -1,6 +1,6 @@
 module.exports = [
-  '$ionicPopup', '$state', '$scope', '$localStorage', 'MeasureTypes', 'Measure',
-  ($ionicPopup,   $state,   $scope,   $localStorage,   MeasureTypes,   Measure) => {
+  '$ionicPopup', '$state', '$scope', '$localStorage', 'MeasureTypes', 'Measure', 'Training',
+  ($ionicPopup,   $state,   $scope,   $localStorage,   MeasureTypes,   Measure,   Training) => {
     $scope.init = () => {
       $scope.data = {};
       $scope.storage = $localStorage;
@@ -51,9 +51,9 @@ module.exports = [
       if (!$localStorage.trainings) {
         $localStorage.trainings = [];
       }
-      $localStorage.trainings.push($scope.data);
+      Training.create($scope.data);
 
-      $state.go('main.dash');
+      $state.go('main.dash', {}, { reload: true });
     };
   }
 ];

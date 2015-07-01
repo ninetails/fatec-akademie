@@ -1,4 +1,4 @@
-<ion-view view-title="Dashboard" ng-init="init()">
+<ion-view view-title="Dashboard" ng-init="init()" cache-view="false">
   <ion-content class="padding">
     <div class="list card" ng-if="!storage.user.measure">
       <a href="#/main/measure" class="item item-icon-left"><i class="icon ion-ios-calculator"></i>Adicione suas medidas</a>
@@ -9,9 +9,9 @@
         <div class="item item-divider">{{training.name}}</div>
         <div class="item item-text-wrap">Descricao do Treino</div>
         <div class="item tabs tabs-secondary tabs-icon-top">
-          <a href="#" class="tab-item" ng-click="trainingCheckin(training)"><i class="icon ion-android-checkbox-outline"></i> Checkin</a>
-          <a href="#" class="tab-item" ng-if="training.train_type == 1"><i class="icon ion-clipboard"></i> Ver exercicios</a>
-          <a href="#" class="tab-item"><i class="icon ion-android-cancel"></i> Desistir</a>
+          <a href="javascript:void(0);" class="tab-item" ng-click="trainingCheckin(training)"><i class="icon ion-android-checkbox-outline"></i> Checkin</a>
+          <a href="javascript:void(0);" class="tab-item" ng-if="training.train_type == 1"><i class="icon ion-clipboard"></i> Ver exercicios</a>
+          <a href="javascript:void(0);" class="tab-item" ng-click="trainingDelete(training)"><i class="icon ion-android-cancel"></i> Desistir</a>
         </div>
       </div>
     </div>

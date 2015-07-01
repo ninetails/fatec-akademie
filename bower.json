@@ -9,5 +9,8 @@
     "ngstorage": "~0.3.4",
     "bootstrap": "~3.3.4",
     "moment": "~2.10.3"
+  },
+  "resolutions": {
+    "ngstorage": "~0.3.4"
   }
 }
